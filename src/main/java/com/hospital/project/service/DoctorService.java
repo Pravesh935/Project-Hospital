@@ -9,22 +9,21 @@ import com.hospital.project.entity.Doctor;
 import com.hospital.project.exception.DoctorNotFoundException;
 import com.hospital.project.repository.DoctorRepo;
 
-
 @Service
 public class DoctorService {
 
 	@Autowired
 	private DoctorRepo dr;
 
-	 
 	public ResponseStructure<Doctor> saveDoctor(Doctor d) {
-		 Doctor saved= dr.save(d);
-		  ResponseStructure<Doctor> rs= new ResponseStructure<Doctor>();
-		  rs.setStatuscode(HttpStatus.CREATED.value());
-		  rs.setMsg("Doctor saved succesfully");
-		  rs.setData(saved);
-		  return rs;
+		Doctor saved = dr.save(d);
+		ResponseStructure<Doctor> rs = new ResponseStructure<Doctor>();
+		rs.setStatuscode(HttpStatus.CREATED.value());
+		rs.setMsg("Doctor saved succesfully");
+		rs.setData(saved);
+		return rs;
 	}
+
 	public ResponseStructure<Doctor> findById(int id) {
 		Doctor d = dr.findById(id).orElseThrow(() -> new DoctorNotFoundException());
 		ResponseStructure rs = new ResponseStructure<Doctor>();
@@ -36,8 +35,7 @@ public class DoctorService {
 		}
 		return rs;
 	}
-	
-	
+
 //	Student Delete method()
 	public ResponseStructure<String> deleteById(int id) {
 		Doctor d = dr.findById(id).orElseThrow(() -> new DoctorNotFoundException());
@@ -51,13 +49,11 @@ public class DoctorService {
 
 		return rs;
 	}
-	
-	
+
 //	update method()
 	public ResponseStructure<Doctor> updateById(int id, Doctor newData) {
 
 		Doctor old = dr.findById(id).orElseThrow(() -> new DoctorNotFoundException());
-				
 
 		// Only update fields, not the ID
 		old.setName(newData.getName());
@@ -74,7 +70,4 @@ public class DoctorService {
 		return rs;
 	}
 
-
-
-	
 }
